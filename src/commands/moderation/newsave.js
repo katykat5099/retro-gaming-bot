@@ -9,7 +9,7 @@ module.exports = {
      */
 
     callback: async (client, interaction) => {
-        if (!interaction.inGuild()) {
+        if (!interaction.inGuild()) { //Does not let you run command outside of servers.
             interaction.reply("You can only run this command inside a server.");
             return;
         }
@@ -25,7 +25,7 @@ module.exports = {
         }
         */
 
-        const newSaveGame = new SaveGame({
+        const newSaveGame = new SaveGame({ //Creates new SaveGame to be stored in the database. Based on user input.
             saveGame: interaction.options.get('save-name').value,
         });
 
@@ -38,7 +38,7 @@ module.exports = {
     },
 
     name: 'newsave',
-    description: 'Creates new save file.',
+    description: 'Creates new save file. (Admin only)',
     options: [
         {
             name: 'save-name',

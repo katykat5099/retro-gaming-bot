@@ -25,11 +25,15 @@ module.exports = {
             }
 
             const collector = interaction.channel.createMessageCollector({
-                filter: (message) => message.contect || message.attachments.first().url,
-                time: 10_000,
+                filter: (message) => message.content || message.attachments,
+                time: 30_000,
             });
 
             collector.on('collect', (message) => {
+                if (message.author.bot) {
+                    return;
+                }
+
                 interaction.channel.send(
                     `Result: ${message}`
                 );
