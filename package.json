@@ -1,0 +1,18 @@
+{
+  "name": "retro-gaming-bot",
+  "version": "1.0.1",
+  "description": "For playing local single-player games over the internet.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "canvacord": "^5.4.10",
+    "discord.js": "^14.13.0",
+    "dotenv": "^16.3.1",
+    "mongoose": "^7.5.2"
+  }
+}
