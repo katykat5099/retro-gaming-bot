@@ -24,27 +24,33 @@ module.exports = {
                 return;
             }
 
+            const collector = interaction.channel.createMessageCollector({
+                filter: (message) => message.contect || message.attachments.first().url,
+                time: 10_000,
+            });
 
-            fetchedGame.player = interaction.member.id;
-            fetchedGame.active = true;
+            collector.on('collect', (message) => {
+                interaction.channel.send(
+                    `Result: ${message}`
+                );
+            });
+
+            collector.on('end', () => {
+                interaction.channel.send(
+                    `Try again.`
+                );
+            });
+
+            interaction.reply(
+            `Input message...`
+            );
+
             await fetchedGame.save();
-            await interaction.deferReply();
-
-            interaction.editReply(
-            `Setting activity... Sending link...`
-            );
-
-            await wait(1000);
-
-            interaction.editReply(
-            `Link: ${fetchedGame.saveLink} \nWhen you're finished, use the /endgame command!`
-            );
-
             return;
-        } catch (error) {
-            console.log(`Error starting save: ${error}`);
-        }
 
+        } catch (error) {
+              console.log(`Error starting save: ${error}`);
+          }
     },
 
     name: 'teststartsave',

@@ -13,11 +13,13 @@ const client = new Client({
     ],
 });
 
-/*
 client.on('messageCreate', (message) => {
     console.log(message.attachments.first().url);
+    console.log(message.attachments.first().attachment);
+    //console.log(message);
 });
 
+/*
 client.on('interactionCreate', (interaction) => {
     if (!interaction.isChatInputCommand()) return;
 
