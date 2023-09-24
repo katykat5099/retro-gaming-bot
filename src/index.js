@@ -22,12 +22,11 @@ client.on('messageCreate', (message) => {
     //console.log(message.attachments.get('name'));
 });
 
-/*
 client.on('interactionCreate', (interaction) => {
     if (!interaction.isChatInputCommand()) return;
 
-    console.log(interaction);
-}); */
+    //console.log(interaction);
+});
 
 (async () => {
     try {

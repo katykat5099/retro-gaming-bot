@@ -71,6 +71,7 @@ module.exports = { //Class
 
             console.log(`saveLink: ${fetchedGame.saveLink}`);
             fetchedGame.active = false;
+            fetchedGame.player = 'none';
             await fetchedGame.save();
             return;
         }
