@@ -1,4 +1,4 @@
-const { Client, Interaction, ApplicationCommandOptionType, PermissionFlagsBits } = require('discord.js');
+const { Client, Interaction, ApplicationCommandOptionType } = require('discord.js');
 const SaveGame = require('../../models/SaveGame');
 const wait = require('node:timers/promises').setTimeout;
 

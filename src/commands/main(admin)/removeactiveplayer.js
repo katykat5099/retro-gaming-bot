@@ -1,4 +1,4 @@
-const { Client, Interaction, ApplicationCommandOptionType } = require('discord.js');
+const { Client, Interaction, ApplicationCommandOptionType, PermissionFlagsBits } = require('discord.js');
 const SaveGame = require('../../models/SaveGame');
 const wait = require('node:timers/promises').setTimeout;
 
@@ -24,26 +24,30 @@ module.exports = {
                 return;
             }
 
-            // if the command is used properly:
-            // Gives the name of the player who is actively using save.
+            /* Player who is set to active wants to set themselves inactive without using /endgame
+            /(resulting in no save file (progress) being uploaded.) */
             const playerId = fetchedGame.player;
             const playerName = await interaction.guild.members.fetch(playerId);
 
+            fetchedGame.active = false;
+            fetchedGame.player = 'none';
+
+            await fetchedGame.save();
+
             await interaction.deferReply();
 
-            interaction.editReply(
-            `${fetchedGame.saveGame}'s active player is ${playerName.user.globalName}`
-            );
+            interaction.editReply(`${playerName.user.globalName} has been set to inactive in ${fetchedGame.saveGame}.`);
 
             return;
+
         } catch (error) {
             console.log(`Error starting save: ${error}`);
         }
 
     },
 
-    name: 'active',
-    description: 'Check who is active for a specified save.',
+    name: 'removeactiveplayer',
+    description: 'Use to remove a players active status for a specific save.',
     options: [
         {
             name: 'save-name',
@@ -52,4 +56,6 @@ module.exports = {
             required: true,
         }
     ],
+    permissionsRequired: [PermissionFlagsBits.Administrator],
+    botPermissions: [PermissionFlagsBits.Administrator],
 };
