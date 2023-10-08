@@ -43,19 +43,24 @@ module.exports = { //Class
 
             let responded = false;
 
-            collector.on('collect', (message) => {
+            collector.on('collect', async (message) => {
                 if (message.author.bot) {
                     return;
                 }
 
                 interaction.channel.send(
-                    `Link provided. Check Database.`
+                    `Saved. See you soon!`
                 );
 
                 fetchedGame.saveLink = message.attachments.first()?.url;
 
                 responded = true;
                 collector.stop();
+                console.log(`saveLink: ${fetchedGame.saveLink}`);
+                fetchedGame.active = false;
+                fetchedGame.player = 'Nobody';
+                await fetchedGame.save();
+                return;
             });
 
             collector.on('end', () => { //If no file is provided.
@@ -66,14 +71,6 @@ module.exports = { //Class
                     return;
                 }
             });
-
-            await wait(31_000); // Eventually find a way to wait for file attachment response, then continue.
-
-            console.log(`saveLink: ${fetchedGame.saveLink}`);
-            fetchedGame.active = false;
-            fetchedGame.player = 'none';
-            await fetchedGame.save();
-            return;
         }
 
         /* if the command is used without providing link:
